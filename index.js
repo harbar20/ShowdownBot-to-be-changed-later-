@@ -70,11 +70,19 @@ bot.on("message", async message => {
                 console.log(`Hp-${spawnHp}\nAtk-${spawnAtk}\nDef-${spawnDef}\nSpAtk-${spawnSpAtk}\nSpDef-${spawnSpDef}\nSpe-${spawnSpeed}\n\nTotal IV: ${ivTotal}`);
                 console.log(spawnLvl);
                 message.channel.send(`Congratulations, <@${message.author.id}>, you caught a **Level ${spawnLvl} ${spawnname}**!`);
+                if(!PlayerPoke[message.author.id]) return message.channel.send(`you need a starter before you can catch pokemon(type in 'p.start'`);
             }
                 else{
                     message.channel.send('incorrect');
                 }
             }
+        if(cmd === `${prefix}start`){
+            let poke = args[0];
+            let startEmbed = new Discord.RichEmbed()
+            .setTitle('Start')
+            .setDescription('Welcome type in "p.start <starter name"')
+            if(!poke) return message.channel.send(startEmbed);
+        }
 
         if(cmd === `${prefix}pokemon`){
             for (var key in PlayerPoke[message.author.id].pokemon.poke.id) {
