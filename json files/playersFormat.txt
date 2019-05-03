@@ -1,0 +1,43 @@
+user:
+	pokecredits [name is a work in progress]
+	pokemon:
+		pokemon1:
+			name
+			level
+			nickname [if there is no nickname, then it defaults to the name]
+			IV's & EV's
+			nature
+			item-held
+			mega?
+			evolutions?
+				if so, what evolutions and when?
+			image
+			moves:
+				move 1:
+					name
+					type
+					description
+				etc.
+			shiny?
+		etc.
+	teams:
+		team1:
+			pokemon1:
+			name
+			level
+			nickname [if there is no nickname, then it defaults to the name]
+			IV's & EV's
+			nature
+			item-held
+			mega?
+			image
+			moves:
+				move 1:
+					name
+					type
+					description
+				etc.
+			shiny?
+		etc.
+			
+			
