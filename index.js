@@ -4,7 +4,8 @@ const oakdexPokedex = require('oakdex-pokedex');
 const bot = new Discord.Client({disableEveryone: true});
 let PlayerPoke = JSON.parse(fs.readFileSync('C:/Users/korea/source/repos/ConsoleApplication1/discord/other_bots/PokemonBot/json files/pokemonlist.json', 'utf8'));
 let playerPokeFile = "C:/Users/korea/source/repos/ConsoleApplication1/discord/other_bots/PokemonBot/json files/pokemonlist.json";
-const botconfig = require('../other_bots/PokemonBot/settings.json')
+const botconfig = require('C:/Users/korea/source/repos/ConsoleApplication1/discord/other_bots/PokemonBot/settings.json')
+const pokemonGif = require('pokemon-gif');
 bot.on('warn', console.warn);
 
 bot.on('error', console.error);
@@ -33,15 +34,20 @@ fs.readdir("./commands/", (err, files) => {
     });
 });
 bot.on("message", async message => {
-    let spawn1 = Math.floor(Math.random() *10) + 1;
-    let spawn2 = Math.floor(Math.random() *10) + 1;
+    let spawn1 = Math.floor(Math.random() * 50) + 1;
+    let spawn2 = Math.floor(Math.random() * 50) + 1;
     console.log(`${spawn1}-${spawn2}`);
-
     if(spawn1 == spawn2){
         let pokespawn = Math.floor(Math.random() * 807) + 1;
         const spawnpokemon = oakdexPokedex.findPokemon(pokespawn);
         console.log(spawnpokemon.names.en);
         spawnname = spawnpokemon.names.en;
+        
+        let spawnEmbed = new Discord.RichEmbed()
+        .setTitle("A Pokemon Has Appeared.")
+        .setDescription("To catch it type out ``p.catch <pokemon name>`` !")
+        .setImage(pokemonGif(spawnname));
+        message.channel.send(spawnEmbed);
     }
 
     let prefix = "p."
@@ -52,32 +58,18 @@ bot.on("message", async message => {
         console.log(`${message.guild.name} - ${message.content.split(" ")}`);
         if(cmd === `${prefix}catch`){
             let _try = args[0];
-            if(_try === spawnname){
-                let addpoke = PlayerPoke[message.author.id].pokemon.length + 1;
-                if(!PlayerPoke[message.author.id]) PlayerPoke[message.author.id] = {
-                        pokemon: {
-                                poke: {
-                                id:addpoke,
-                                name: spawnname
-                            }
-                        }
-                    } 
-                fs.writeFile(playerPokeFile, JSON.stringify(PlayerPoke), (err) => {
-                    if(err) console.log(err);
-                })
-                
-                PlayerPoke[message.author.id] = {
-                    pokemon: {
-                            poke: {
-                            id:addpoke,
-                            name: spawnname
-                        }
-                    }
-                }
-                fs.writeFile(playerPokeFile, JSON.stringify(PlayerPoke), (err) => {
-                    if(err) console.log(err);
-                })
-                return;
+            if(_try.toLowerCase() === spawnname.toLowerCase()){
+                let spawnLvl = Math.floor(Math.random() * 50) + 1;
+                let spawnHp = Math.floor(Math.random() * 31) + 1;
+                let spawnAtk = Math.floor(Math.random() * 31) + 1;
+                let spawnDef = Math.floor(Math.random() * 31) + 1;
+                let spawnSpAtk = Math.floor(Math.random() * 31) + 1;
+                let spawnSpDef = Math.floor(Math.random() * 31) + 1;
+                let spawnSpeed = Math.floor(Math.random() * 31) + 1;
+                let ivTotal = (((spawnHp + spawnAtk + spawnDef + spawnSpAtk + spawnSpDef + spawnSpeed)/186)*100)
+                console.log(`Hp-${spawnHp}\nAtk-${spawnAtk}\nDef-${spawnDef}\nSpAtk-${spawnSpAtk}\nSpDef-${spawnSpDef}\nSpe-${spawnSpeed}\n\nTotal IV: ${ivTotal}`);
+                console.log(spawnLvl);
+                message.channel.send(`Congratulations, <@${message.author.id}>, you caught a **Level ${spawnLvl} ${spawnname}**!`);
             }
                 else{
                     message.channel.send('incorrect');
@@ -93,4 +85,4 @@ bot.on("message", async message => {
     }
 }
 });
-bot.login();
+bot.login(botconfig.token);
