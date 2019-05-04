@@ -1,13 +1,1 @@
-{
-    "users":{
-        "399021249667399722":{
-            "pokecredits":0,
-            "pokemon":{
-                
-            },
-            "teams":{
-                
-            }
-        }
-    }
-}
+{"304446682081525772":{"pokecredits":0,"pokemon":{"id":[{"id":1,"pokemon":"Oshawott","level":5,"nature":"Brave","iv":{"ivHp":1,"ivAtk":12,"ivDef":31,"ivSpAtk":12,"ivSpDef":19,"ivSpe":25}},{"id":2,"pokemon":"Mew","level":24,"nature":"Lonely","iv":{"ivHp":30,"ivAtk":4,"ivDef":3,"ivSpAtk":6,"ivSpDef":23,"ivSpe":14}}],"team":{}}}}
